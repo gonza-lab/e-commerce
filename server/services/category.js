@@ -8,7 +8,9 @@ const create = async ({ name, father }) => {
     fatherCategoryDB = await Category.findOne({ where: { id: father } });
 
     if (!fatherCategoryDB)
-      throw new errors.NotFound('Not Found: Sent parent category cannot be found.');
+      throw new errors.NotFound(
+        'Not Found: Sent parent category cannot be found.'
+      );
   }
 
   let categoryDB = await Category.create({ name, fatherId: father });
@@ -16,4 +18,6 @@ const create = async ({ name, father }) => {
   return categoryDB.dataValues;
 };
 
-module.exports = { create };
+const readAll = async () => await Category.findAll({ include: Category });
+
+module.exports = { create, readAll };

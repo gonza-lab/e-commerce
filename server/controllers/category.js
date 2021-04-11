@@ -14,4 +14,18 @@ const create = async (req = request, res = response, next) => {
   }
 };
 
-module.exports = { create };
+const readAll = async (req = request, res = response) => {
+  try {
+    const data = await category_service.readAll();
+    console.log(data)
+
+    res.status(200).json({
+      ok: true,
+      data,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { create, readAll };

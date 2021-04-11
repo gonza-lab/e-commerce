@@ -10,5 +10,6 @@ route.post(
   joi_validator(category_schema.create, 'body'),
   category_controller.create
 );
+route.get('/', category_controller.readAll);
 
 module.exports = route;
