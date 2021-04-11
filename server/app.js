@@ -4,6 +4,7 @@ const clc = require('cli-color');
 const morgan = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
+// require('./models/index')
 
 class Server {
   constructor() {
