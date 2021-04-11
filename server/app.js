@@ -40,6 +40,7 @@ class Server {
     this.app.use(
       express.static(path.resolve(__dirname, '../react-app/build'))
     );
+    this.app.use('/api/category', require('./routes/category'));
 
     this.app.get('*', function (req, res) {
       res.sendFile(
