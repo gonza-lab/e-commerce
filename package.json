@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/gonza-lab/e-commerce/issues"
   },
-  "homepage": "https://github.com/gonza-lab/e-commerce#readme"
+  "homepage": "https://github.com/gonza-lab/e-commerce#readme",
+  "dependencies": {
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  }
 }
