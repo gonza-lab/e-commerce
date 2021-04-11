@@ -42,6 +42,8 @@ class Server {
     );
     this.app.use('/api/category', require('./routes/category'));
 
+    this.app.use(require('./middlewares/errorHandler'));
+
     this.app.get('*', function (req, res) {
       res.sendFile(
         path.resolve(__dirname, '../react-app/build', 'index.html')
