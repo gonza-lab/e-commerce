@@ -1,4 +1,4 @@
-const { NotFound } = require('../errors/errors');
+const errors = require('../errors/errors');
 const { Category } = require('../models');
 
 const create = async ({ name, father }) => {
@@ -7,15 +7,13 @@ const create = async ({ name, father }) => {
   if (father) {
     fatherCategoryDB = await Category.findOne({ where: { id: father } });
 
-    if (!fatherCategory)
-      throw new NotFound('Not Found: Sent parent category cannot be found.');
+    if (!fatherCategoryDB)
+      throw new errors.NotFound('Not Found: Sent parent category cannot be found.');
   }
 
-  let categoryDB = await Category.create({ name });
+  let categoryDB = await Category.create({ name, fatherId: father });
 
-  if (fatherCategoryDB) fatherCategoryDB.addSon(categoryDB);
-
-  return categoryDB;
+  return categoryDB.dataValues;
 };
 
 module.exports = { create };

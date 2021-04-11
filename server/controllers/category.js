@@ -1,4 +1,4 @@
-const { request, response } = require("express");
+const { request, response } = require('express');
 const category_service = require('../services/category');
 
 const create = async (req = request, res = response, next) => {
@@ -10,8 +10,8 @@ const create = async (req = request, res = response, next) => {
 
     res.status(code).json(resContent);
   } catch (error) {
-    next(error);
+    next(error)
   }
-}
+};
 
 module.exports = { create };
