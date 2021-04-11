@@ -27,7 +27,7 @@ class NotFound extends Error {
     super();
     Error.captureStackTrace(this, this.constructor);
     this.statusCode = 404;
-    this.errorMessage = message || 'El recurso no se encuentra';
+    this.errorMessage = message || 'Not Found: The resource is not found';
   }
 }
 class RequireLogin extends Error {

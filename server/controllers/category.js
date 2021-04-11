@@ -1,11 +1,12 @@
 const { request, response } = require("express");
+const category_service = require('../services/category');
 
-const create = (req = request, res = response, next) => {
+const create = async (req = request, res = response, next) => {
   let code = 201;
   let resContent = { ok: true };
 
   try {
-    //service
+    await category_service.create(req.body);
 
     res.status(code).json(resContent);
   } catch (error) {
