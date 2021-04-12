@@ -27,4 +27,16 @@ const update = async (req = request, res = response, next) => {
   }
 };
 
-module.exports = { create, update };
+const remove = async (req = request, res = response, next) => {
+  try {
+    await product_service.delete(req.params.id);
+
+    res.status(200).json({
+      ok: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { create, update, delete: remove };

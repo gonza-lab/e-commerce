@@ -1,5 +1,6 @@
 const category_service = require('./category');
 const { Product } = require('../models');
+const errors = require('../errors/errors');
 
 const exists = async (id) => {
   let productDB = await Product.findOne({ where: { id } });
@@ -31,4 +32,10 @@ const update = async ({ name, price, stock, categoryId }, id) => {
   return productDB;
 };
 
-module.exports = { create, update };
+const remove = async (id) => {
+  await exists(id);
+
+  await Product.destroy({ where: { id } });
+};
+
+module.exports = { create, update, delete: remove };

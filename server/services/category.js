@@ -24,6 +24,7 @@ const readAll = async () =>
   await Category.findAll({ include: ['father', 'son'] });
 
 const update = async ({ name, father }, id) => {
+  console.log(id)
   await exists(id);
 
   if (father) {
