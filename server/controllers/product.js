@@ -1,8 +1,9 @@
 const { request, response } = require('express');
+const product_service = require('../services/product');
 
 const create = async (req = request, res = response, next) => {
   try {
-    let data;
+    let data = await product_service.create(req.body);
 
     res.status(201).json({
       ok: true,
