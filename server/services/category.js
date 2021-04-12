@@ -18,6 +18,7 @@ const create = async ({ name, father }) => {
   return categoryDB.dataValues;
 };
 
-const readAll = async () => await Category.findAll({ include: Category });
+const readAll = async () =>
+  await Category.findAll({ include: ['father', 'son'] });
 
 module.exports = { create, readAll };

@@ -14,16 +14,16 @@ const create = async (req = request, res = response, next) => {
   }
 };
 
-const readAll = async (req = request, res = response) => {
+const readAll = async (req = request, res = response, next) => {
   try {
     const data = await category_service.readAll();
-    console.log(data)
 
     res.status(200).json({
       ok: true,
       data,
     });
   } catch (error) {
+    console.log(error)
     next(error);
   }
 };
