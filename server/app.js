@@ -5,7 +5,6 @@ const cors = require('cors');
 const error_handler = require('./middlewares/errorHandler');
 const path = require('path');
 require('dotenv').config();
-// require('./models/index')
 
 const isDev = process.env.NODE_ENV !== 'production';
 const PORT = process.env.PORT || 5000;
