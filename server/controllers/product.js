@@ -16,7 +16,7 @@ const create = async (req = request, res = response, next) => {
 
 const update = async (req = request, res = response, next) => {
   try {
-    let data;
+    let data = await product_service.update(req.body, req.params.id);
 
     res.status(200).json({
       ok: true,
