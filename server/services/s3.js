@@ -6,7 +6,7 @@ const getPresginedPutUrl = (Key, Bucket) => {
   let url = s3.getSignedUrl('putObject', {
     Bucket,
     Key,
-    Expires: 240,
+    Expires: 30,
   });
 
   return url;
