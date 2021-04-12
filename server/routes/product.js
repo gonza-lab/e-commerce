@@ -10,5 +10,11 @@ route.post(
   joi_validator(product_schema.create, 'body'),
   product_controller.create
 );
+route.put(
+  '/:id',
+  joi_validator(product_schema.id, 'params'),
+  joi_validator(product_schema.update, 'body'),
+  product_controller.update
+);
 
 module.exports = route;

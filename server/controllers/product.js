@@ -14,4 +14,17 @@ const create = async (req = request, res = response, next) => {
   }
 };
 
-module.exports = { create };
+const update = async (req = request, res = response, next) => {
+  try {
+    let data;
+
+    res.status(200).json({
+      ok: true,
+      data,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { create, update };
