@@ -22,7 +22,8 @@ module.exports = {
         references: {
           model: 'Categories',
           key: 'id'
-        }
+        },
+        onDelete: 'SET NULL'
       },
       createdAt: {
         allowNull: false,
