@@ -23,9 +23,20 @@ const readAll = async (req = request, res = response, next) => {
       data,
     });
   } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+const update = async (req = request, res = response, next) => {
+  try {
+    let data = await category_service.update(req.body, req.params.id);
+
+    res.status(200).json({ ok: true, data });
+  } catch (error) {
     console.log(error)
     next(error);
   }
 };
 
-module.exports = { create, readAll };
+module.exports = { create, readAll, update };

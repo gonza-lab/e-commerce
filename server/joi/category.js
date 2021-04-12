@@ -5,4 +5,13 @@ const create = Joi.object({
   father: Joi.number(),
 });
 
-module.exports = { create };
+const id = Joi.object({
+  id: Joi.number().required(),
+});
+
+const update = Joi.object({
+  name: Joi.string(),
+  father: Joi.number(),
+}).or('name', 'father');
+
+module.exports = { create, update, id };

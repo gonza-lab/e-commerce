@@ -11,5 +11,11 @@ route.post(
   category_controller.create
 );
 route.get('/', category_controller.readAll);
+route.put(
+  '/:id',
+  joi_validator(category_schema.id, 'params'),
+  joi_validator(category_schema.update, 'body'),
+  category_controller.update
+);
 
 module.exports = route;

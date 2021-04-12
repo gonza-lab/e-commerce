@@ -1,16 +1,18 @@
 const errors = require('../errors/errors');
 const { Category } = require('../models');
 
+const exists = async (id) => {
+  let categoryDB = await Category.findOne({ where: { id } });
+
+  if (!categoryDB)
+    throw new errors.NotFound('Not Found: Sent category cannot be found.');
+
+  return categoryDB;
+};
+
 const create = async ({ name, father }) => {
-  let fatherCategoryDB;
-
   if (father) {
-    fatherCategoryDB = await Category.findOne({ where: { id: father } });
-
-    if (!fatherCategoryDB)
-      throw new errors.NotFound(
-        'Not Found: Sent parent category cannot be found.'
-      );
+    await exists(father);
   }
 
   let categoryDB = await Category.create({ name, fatherId: father });
@@ -21,4 +23,16 @@ const create = async ({ name, father }) => {
 const readAll = async () =>
   await Category.findAll({ include: ['father', 'son'] });
 
-module.exports = { create, readAll };
+const update = async ({ name, father }, id) => {
+  await exists(id);
+
+  if (father) {
+    await exists(father);
+  }
+
+  await Category.update({ name, fatherId: father }, { where: { id } });
+
+  return (await Category.findOne({ where: { id } })).dataValues;
+};
+
+module.exports = { create, readAll, update };
