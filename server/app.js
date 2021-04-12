@@ -3,6 +3,7 @@ const clc = require('cli-color');
 const morgan = require('morgan');
 const cors = require('cors');
 const error_handler = require('./middlewares/errorHandler');
+const path = require('path');
 require('dotenv').config();
 // require('./models/index')
 
@@ -11,12 +12,12 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: process.env.ORIGIN,
-//     optionsSuccessStatus: 200,
-//   })
-// );
+app.use(
+  cors({
+    origin: process.env.ORIGIN,
+    optionsSuccessStatus: 200,
+  })
+);
 
 if (isDev) {
   app.use(morgan(':date[clf] - :method :url :status - :response-time ms'));
@@ -27,12 +28,13 @@ app.get('/api', function (req, res) {
 });
 
 // ROUTES
-// app.use(express.static(path.resolve(__dirname, '../react-app/build')));
+app.use(express.static(path.resolve(__dirname, '../react-app/build')));
 app.use('/api/category', require('./routes/category'));
+app.use('/api/product', require('./routes/product'));
 
-// app.get('*', function (req, res) {
-//   res.sendFile(path.resolve(__dirname, '../react-app/build', 'index.html'));
-// });
+app.get('*', function (req, res) {
+  res.sendFile(path.resolve(__dirname, '../react-app/build', 'index.html'));
+});
 
 app.use(error_handler);
 
@@ -45,4 +47,3 @@ app.listen(PORT, () => {
   console.log('Server Online');
   console.log(`Puerto ${PORT}`);
 });
-
