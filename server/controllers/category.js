@@ -34,9 +34,18 @@ const update = async (req = request, res = response, next) => {
 
     res.status(200).json({ ok: true, data });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     next(error);
   }
 };
 
-module.exports = { create, readAll, update };
+const remove = async (req = request, res = response, next) => {
+  try {
+    await category_service.delete(req.params.id);
+    res.status(200).json({ ok: true });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { create, readAll, update, delete: remove };

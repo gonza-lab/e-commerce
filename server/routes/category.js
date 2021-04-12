@@ -17,5 +17,10 @@ route.put(
   joi_validator(category_schema.update, 'body'),
   category_controller.update
 );
+route.delete(
+  '/:id',
+  joi_validator(category_schema.id, 'params'),
+  category_controller.delete
+);
 
 module.exports = route;

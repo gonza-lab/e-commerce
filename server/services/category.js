@@ -35,4 +35,9 @@ const update = async ({ name, father }, id) => {
   return (await Category.findOne({ where: { id } })).dataValues;
 };
 
-module.exports = { create, readAll, update };
+const remove = async (id) => {
+  await exists(id);
+  await Category.destroy({ where: { id } });
+};
+
+module.exports = { create, readAll, update, delete: remove };
