@@ -40,4 +40,4 @@ const remove = async (id) => {
   await Category.destroy({ where: { id } });
 };
 
-module.exports = { create, readAll, update, delete: remove };
+module.exports = { create, readAll, update, delete: remove, exists };
