@@ -6,7 +6,7 @@ const getPresginedPutUrl = (Key, Bucket, mime) => {
   let url = s3.getSignedUrl('putObject', {
     Bucket,
     Key,
-    Expires: 3000,
+    Expires: process.env.AWS_S3_PRESIGNED_EXPIRATION,
     ContentType: mime,
   });
 
@@ -19,7 +19,7 @@ const getPresginedPutUrlByArray = (objects = []) => {
   objects.forEach((object) => {
     presginedsPutUrls[object.name] = getPresginedPutUrl(
       object.name,
-      'gonzabucket2021',
+      process.env.AWS_S3_BUCKET,
       object.mime
     );
   });

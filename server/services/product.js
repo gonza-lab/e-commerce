@@ -21,7 +21,7 @@ const create = async ({ name, price, stock, categoryId, images }) => {
   if (images) {
     for (const image in images) {
       await productDB.createImage({
-        url: `https://${process.env.AWS_BUCKET}.s3-${process.env.AWS_REGION}.amazonaws.com/product/${productDB.dataValues.id}/${images[image].name}`,
+        url: `https://${process.env.AWS_S3_BUCKET}.s3-${process.env.AWS_REGION}.amazonaws.com/product/${productDB.dataValues.id}/${images[image].name}`,
         mime: images[image].mime,
       });
     }
