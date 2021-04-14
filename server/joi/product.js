@@ -9,7 +9,14 @@ const create = Joi.object({
   price: Joi.number().min(0).required(),
   stock: Joi.number().min(1).required(),
   categoryId: Joi.number(),
-  images: Joi.array().items(Joi.string()).required()
+  images: Joi.array()
+    .items(
+      Joi.object({
+        mime: Joi.string().required(),
+        name: Joi.string().required(),
+      })
+    )
+    .required(),
 });
 
 const update = Joi.object({
