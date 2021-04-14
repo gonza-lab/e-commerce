@@ -11,15 +11,23 @@ const exists = async (id) => {
   return productDB;
 };
 
-const create = async ({ name, price, stock, categoryId }) => {
+const create = async ({ name, price, stock, categoryId, images }) => {
   if (categoryId) {
     await category_service.exists(categoryId);
   }
 
-  let productDB = (await Product.create({ name, price, stock, categoryId }))
-    .dataValues;
+  let productDB = await Product.create({ name, price, stock, categoryId });
 
-  return productDB;
+  if (images) {
+    for (const image in images) {
+      await productDB.createImage({
+        url: `https://${process.env.AWS_BUCKET}.s3-${process.env.AWS_REGION}.amazonaws.com/product/${productDB.dataValues.id}/${images[image].name}`,
+        mime: images[image].mime,
+      });
+    }
+  }
+
+  return productDB.dataValues;
 };
 
 const update = async ({ name, price, stock, categoryId }, id) => {

@@ -1,15 +1,24 @@
 const { request, response } = require('express');
 const product_service = require('../services/product');
+const s3_service = require('../services/s3');
 
 const create = async (req = request, res = response, next) => {
   try {
     let data = await product_service.create(req.body);
+    let presginedUrls = await s3_service.getPresginedPutUrlByArray(
+      req.body.images.map((img) => ({
+        name: `product/${data.id}/${img.name}`,
+        mime: img.mime,
+      }))
+    );
 
     res.status(201).json({
       ok: true,
       data,
+      'presgined-urls': presginedUrls,
     });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
