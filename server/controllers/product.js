@@ -90,10 +90,19 @@ const confirmUploadOfImagesInS3 = async (
   }
 };
 
+const deleteImagesInS3AndDB = async (req = request, res = response, next) => {
+  try {
+    res.status(200).json({ ok: true });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
   update,
   delete: remove,
   confirmUploadOfImagesInS3,
   getPresginedUrlToPutImage,
+  deleteImagesInS3AndDB
 };

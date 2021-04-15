@@ -33,5 +33,11 @@ route.post(
   joi_validator(product_schema.getPresginedUrlToPutImages, 'body'),
   product_controller.getPresginedUrlToPutImage
 );
+route.delete(
+  '/:id/image',
+  joi_validator(product_schema.id, 'params'),
+  joi_validator(product_schema.deleteImages, 'body'),
+  product_controller.deleteImagesInS3AndDB
+);
 
 module.exports = route;

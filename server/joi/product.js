@@ -40,4 +40,21 @@ const getPresginedUrlToPutImages = Joi.object({
     .required(),
 });
 
-module.exports = { id, create, update, images, getPresginedUrlToPutImages };
+const deleteImages = Joi.object({
+  delete: Joi.array()
+    .items(
+      Joi.object({
+        name: Joi.string().required(),
+      })
+    )
+    .required(),
+});
+
+module.exports = {
+  id,
+  create,
+  update,
+  images,
+  getPresginedUrlToPutImages,
+  deleteImages,
+};
