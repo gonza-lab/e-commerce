@@ -5,12 +5,6 @@ const s3_service = require('../services/s3');
 const create = async (req = request, res = response, next) => {
   try {
     let data = await product_service.create(req.body);
-    let presginedUrls = await s3_service.getPresginedPutUrlByArray(
-      req.body.images.map((img) => ({
-        name: `product/${data.id}/${img.name}`,
-        mime: img.mime,
-      }))
-    );
 
     res.status(201).json({
       ok: true,
@@ -48,6 +42,28 @@ const remove = async (req = request, res = response, next) => {
   }
 };
 
+const getPresginedUrlToUpdateImage = async (
+  req = request,
+  res = response,
+  next
+) => {
+  try {
+    let upload = await s3_service.getPresginedPutUrlByArray(
+      req.body.upload.map((img) => ({
+        name: `product/${data.id}/${img.name}`,
+        mime: img.mime,
+      }))
+    );
+    let remove;
+
+    res
+      .status(200)
+      .json({ ok: true, 'presgined-urls': { upload, delete: remove } });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const confirmUploadOfImagesInS3 = async (
   req = request,
   res = response,
@@ -66,4 +82,10 @@ const confirmUploadOfImagesInS3 = async (
   }
 };
 
-module.exports = { create, update, delete: remove, confirmUploadOfImagesInS3 };
+module.exports = {
+  create,
+  update,
+  delete: remove,
+  confirmUploadOfImagesInS3,
+  getPresginedUrlToUpdateImage,
+};
