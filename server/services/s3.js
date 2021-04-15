@@ -6,7 +6,7 @@ const getPresginedPutUrl = (Key, Bucket, mime) => {
   let url = s3.getSignedUrl('putObject', {
     Bucket,
     Key,
-    Expires: process.env.AWS_S3_PRESIGNED_EXPIRATION,
+    Expires: +process.env.AWS_S3_PRESIGNED_EXPIRATION,
     ContentType: mime,
   });
 

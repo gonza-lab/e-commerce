@@ -18,15 +18,6 @@ const create = async ({ name, price, stock, categoryId, images }) => {
 
   let productDB = await Product.create({ name, price, stock, categoryId });
 
-  if (images) {
-    for (const image in images) {
-      await productDB.createImage({
-        url: `https://${process.env.AWS_S3_BUCKET}.s3-${process.env.AWS_REGION}.amazonaws.com/product/${productDB.dataValues.id}/${images[image].name}`,
-        mime: images[image].mime,
-      });
-    }
-  }
-
   return productDB.dataValues;
 };
 
