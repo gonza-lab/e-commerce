@@ -27,5 +27,11 @@ route.post(
   joi_validator(product_schema.images, 'body'),
   product_controller.confirmUploadOfImagesInS3
 );
+route.post(
+  '/:id/get-presgined-to-put-images',
+  joi_validator(product_schema.id, 'params'),
+  joi_validator(product_schema.getPresginedUrlToPutImages, 'body'),
+  product_controller.getPresginedUrlToPutImage
+);
 
 module.exports = route;

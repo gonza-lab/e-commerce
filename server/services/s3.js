@@ -36,8 +36,28 @@ const getHeadObject = (Key, Bucket) => {
   });
 };
 
+const deleteObject = (Key, Bucket) => {
+  return new Promise((resolve, reject) => {
+    s3.deleteObject({ Key, Bucket }, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(datak);
+      }
+    });
+  });
+};
+
+const deleteObjectsByArray = (objects = []) => {
+  objects.forEach(
+    async (object) => await deleteObject(object.Key, process.env.AWS_S3_BUCKET)
+  );
+};
+
 module.exports = {
   getPresginedPutUrl,
   getPresginedPutUrlByArray,
-  getHeadObject
+  getHeadObject,
+  deleteObject,
+  deleteObjectsByArray,
 };

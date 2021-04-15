@@ -42,24 +42,32 @@ const remove = async (req = request, res = response, next) => {
   }
 };
 
-const getPresginedUrlToUpdateImage = async (
+const getPresginedUrlToPutImage = async (
   req = request,
   res = response,
   next
 ) => {
   try {
+    const { id } = req.params;
+    await product_service.exists(id);
+
     let upload = await s3_service.getPresginedPutUrlByArray(
       req.body.upload.map((img) => ({
-        name: `product/${data.id}/${img.name}`,
+        name: `product/${id}/${img.name}`,
         mime: img.mime,
       }))
     );
-    let remove;
+    // if (req.body.delete) {
+    //   s3_service.deleteObjectsByArray(
+    //     req.body.delete.map((image) => ({
+    //       Key: `product/${req.body.id}/${image}`,
+    //     }))
+    //   );
+    // }
 
-    res
-      .status(200)
-      .json({ ok: true, 'presgined-urls': { upload, delete: remove } });
+    res.status(200).json({ ok: true, 'presgined-urls': upload });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
@@ -87,5 +95,5 @@ module.exports = {
   update,
   delete: remove,
   confirmUploadOfImagesInS3,
-  getPresginedUrlToUpdateImage,
+  getPresginedUrlToPutImage,
 };

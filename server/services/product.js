@@ -74,4 +74,10 @@ const confirmUploadOfImagesInS3 = async (images, id) => {
   return uploaded;
 };
 
-module.exports = { create, update, delete: remove, confirmUploadOfImagesInS3 };
+module.exports = {
+  create,
+  update,
+  delete: remove,
+  confirmUploadOfImagesInS3,
+  exists,
+};

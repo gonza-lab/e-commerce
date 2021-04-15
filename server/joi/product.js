@@ -20,14 +20,6 @@ const create = Joi.object({
   price: Joi.number().min(0).required(),
   stock: Joi.number().min(1).required(),
   categoryId: Joi.number(),
-  images: Joi.array()
-    .items(
-      Joi.object({
-        mime: Joi.string().required(),
-        name: Joi.string().required(),
-      })
-    )
-    .required(),
 });
 
 const update = Joi.object({
@@ -37,4 +29,15 @@ const update = Joi.object({
   categoryId: [Joi.number(), null],
 }).or('name', 'price', 'stock', 'categoryId');
 
-module.exports = { id, create, update, images };
+const getPresginedUrlToPutImages = Joi.object({
+  upload: Joi.array()
+    .items(
+      Joi.object({
+        mime: Joi.string().required(),
+        name: Joi.string().required(),
+      })
+    )
+    .required(),
+});
+
+module.exports = { id, create, update, images, getPresginedUrlToPutImages };
