@@ -48,4 +48,22 @@ const remove = async (req = request, res = response, next) => {
   }
 };
 
-module.exports = { create, update, delete: remove };
+const confirmUploadOfImagesInS3 = async (
+  req = request,
+  res = response,
+  next
+) => {
+  try {
+    const uploaded = await product_service.confirmUploadOfImagesInS3(
+      req.body.images,
+      req.params.id
+    );
+
+    res.status(200).json({ ok: true, uploaded });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+module.exports = { create, update, delete: remove, confirmUploadOfImagesInS3 };

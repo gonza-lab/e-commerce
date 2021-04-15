@@ -4,6 +4,17 @@ const id = Joi.object({
   id: Joi.number().required(),
 });
 
+const images = Joi.object({
+  images: Joi.array()
+    .items(
+      Joi.object({
+        mime: Joi.string().required(),
+        name: Joi.string().required(),
+      })
+    )
+    .required(),
+});
+
 const create = Joi.object({
   name: Joi.string().required(),
   price: Joi.number().min(0).required(),
@@ -26,4 +37,4 @@ const update = Joi.object({
   categoryId: [Joi.number(), null],
 }).or('name', 'price', 'stock', 'categoryId');
 
-module.exports = { id, create, update };
+module.exports = { id, create, update, images };

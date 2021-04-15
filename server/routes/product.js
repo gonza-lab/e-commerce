@@ -21,5 +21,11 @@ route.delete(
   joi_validator(product_schema.id, 'params'),
   product_controller.delete
 );
+route.post(
+  '/:id/confirm-upload-images',
+  joi_validator(product_schema.id, 'params'),
+  joi_validator(product_schema.images, 'body'),
+  product_controller.confirmUploadOfImagesInS3
+);
 
 module.exports = route;
