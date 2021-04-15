@@ -27,7 +27,7 @@ const getPresginedPutUrlByArray = (objects = []) => {
   return presginedsPutUrls;
 };
 
-const objectExists = (Key, Bucket) => {
+const getHeadObject = (Key, Bucket) => {
   return new Promise((resolve, reject) => {
     s3.headObject({ Bucket, Key }, (err, data) => {
       if (err) reject(err);
@@ -39,5 +39,5 @@ const objectExists = (Key, Bucket) => {
 module.exports = {
   getPresginedPutUrl,
   getPresginedPutUrlByArray,
-  objectExists,
+  getHeadObject
 };
