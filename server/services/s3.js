@@ -42,7 +42,7 @@ const deleteObject = (Key, Bucket) => {
       if (err) {
         reject(err);
       } else {
-        resolve(datak);
+        resolve(data);
       }
     });
   });
