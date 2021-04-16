@@ -74,10 +74,39 @@ const confirmUploadOfImagesInS3 = async (images, id) => {
   return uploaded;
 };
 
+const deleteImagesFromS3AndDB = async (images, id) => {
+  await exists(id);
+
+  images.forEach(async (image) => {
+    let existsObject = true;
+    let Key = `product/${id}/${image.name}`;
+
+    try {
+      await s3_service.getHeadObject(Key, process.env.AWS_S3_BUCKET);
+    } catch (error) {
+      existsObject = false;
+    }
+
+    if (existsObject) {
+      await s3_service.deleteObject(
+        `product/${id}/${image.name}`,
+        process.env.AWS_S3_BUCKET
+      );
+
+      await Image.destroy({
+        where: {
+          url: `https://${process.env.AWS_S3_BUCKET}.s3-${process.env.AWS_REGION}.amazonaws.com/${Key}`,
+        },
+      });
+    }
+  });
+};
+
 module.exports = {
   create,
   update,
   delete: remove,
   confirmUploadOfImagesInS3,
   exists,
+  deleteImagesFromS3AndDB,
 };
