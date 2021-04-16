@@ -92,6 +92,11 @@ const confirmUploadOfImagesInS3 = async (
 
 const deleteImagesInS3AndDB = async (req = request, res = response, next) => {
   try {
+    await product_service.deleteImagesFromS3AndDB(
+      req.body.delete,
+      req.params.id
+    );
+    
     res.status(200).json({ ok: true });
   } catch (error) {
     next(error);
@@ -104,5 +109,5 @@ module.exports = {
   delete: remove,
   confirmUploadOfImagesInS3,
   getPresginedUrlToPutImage,
-  deleteImagesInS3AndDB
+  deleteImagesInS3AndDB,
 };
