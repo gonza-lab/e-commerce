@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Image.init({
+    name: DataTypes.STRING,
     url: DataTypes.STRING,
     mime: DataTypes.STRING
   }, {
