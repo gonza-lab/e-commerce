@@ -39,10 +39,11 @@ const remove = async (id) => {
   await deleteImagesFromS3AndDB(
     imagesDB.map(({ dataValues }) => ({
       name: dataValues.name,
-    }))
+    })),
+    id
   );
 
-  // await Product.destroy({ where: { id } });
+  await Product.destroy({ where: { id } });
 };
 
 const confirmUploadOfImagesInS3 = async (images, id) => {

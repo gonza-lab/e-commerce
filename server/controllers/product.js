@@ -37,6 +37,7 @@ const remove = async (req = request, res = response, next) => {
       ok: true,
     });
   } catch (error) {
+    console.log(error)
     next(error);
   }
 };
