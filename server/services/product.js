@@ -12,7 +12,7 @@ const exists = async (id) => {
   return productDB;
 };
 
-const create = async ({ name, price, stock, categoryId, images }) => {
+const create = async ({ name, price, stock, categoryId }) => {
   if (categoryId) {
     await category_service.exists(categoryId);
   }
@@ -33,9 +33,16 @@ const update = async ({ name, price, stock, categoryId }, id) => {
 };
 
 const remove = async (id) => {
-  await exists(id);
+  const productDB = await exists(id);
 
-  await Product.destroy({ where: { id } });
+  let imagesDB = await productDB.getImages();
+  await deleteImagesFromS3AndDB(
+    imagesDB.map(({ dataValues }) => ({
+      name: dataValues.name,
+    }))
+  );
+
+  // await Product.destroy({ where: { id } });
 };
 
 const confirmUploadOfImagesInS3 = async (images, id) => {
@@ -55,16 +62,14 @@ const confirmUploadOfImagesInS3 = async (images, id) => {
     }
 
     if (existsImgInS3) {
-      const url = `https://${process.env.AWS_S3_BUCKET}.s3-${process.env.AWS_REGION}.amazonaws.com/product/${id}/${images[image].name}`;
+      const name = images[image].name;
       const mime = images[image].mime;
+      const url = `https://${process.env.AWS_S3_BUCKET}.s3-${process.env.AWS_REGION}.amazonaws.com/product/${id}/${name}`;
 
-      let imageDB = await Image.findOne({ where: { url, mime } });
+      let imageDB = await Image.findOne({ where: { url, mime, name } });
 
       if (!imageDB) {
-        await productDB.createImage({
-          url: `https://${process.env.AWS_S3_BUCKET}.s3-${process.env.AWS_REGION}.amazonaws.com/product/${id}/${images[image].name}`,
-          mime: images[image].mime,
-        });
+        await productDB.createImage({ url, mime, name });
       }
 
       uploaded.push({ ...images[image], url });
@@ -74,24 +79,22 @@ const confirmUploadOfImagesInS3 = async (images, id) => {
   return uploaded;
 };
 
-const deleteImagesFromS3AndDB = async (images, id) => {
+const deleteImagesFromS3AndDB = async (images = [], id) => {
   await exists(id);
 
   images.forEach(async (image) => {
     let existsObject = true;
     let Key = `product/${id}/${image.name}`;
+    let Bucket = process.env.AWS_S3_BUCKET;
 
     try {
-      await s3_service.getHeadObject(Key, process.env.AWS_S3_BUCKET);
+      await s3_service.getHeadObject(Key, Bucket);
     } catch (error) {
       existsObject = false;
     }
 
     if (existsObject) {
-      await s3_service.deleteObject(
-        `product/${id}/${image.name}`,
-        process.env.AWS_S3_BUCKET
-      );
+      await s3_service.deleteObject(Key, Bucket);
 
       await Image.destroy({
         where: {
