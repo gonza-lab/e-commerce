@@ -9,7 +9,6 @@ const create = async (req = request, res = response, next) => {
     res.status(201).json({
       ok: true,
       data,
-      'presgined-urls': presginedUrls,
     });
   } catch (error) {
     console.log(error);
@@ -96,7 +95,7 @@ const deleteImagesInS3AndDB = async (req = request, res = response, next) => {
       req.body.delete,
       req.params.id
     );
-    
+
     res.status(200).json({ ok: true });
   } catch (error) {
     next(error);
