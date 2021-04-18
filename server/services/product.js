@@ -48,6 +48,11 @@ const remove = async (id) => {
 
 const getAll = async () => await Product.findAll({ include: [Image, Category] });
 
+const getById = async (id) => {
+  await exists(id);
+  return await Product.findOne({ where: { id }, include: [Image, Category] })
+};
+
 const confirmUploadOfImagesInS3 = async (images, id) => {
   let productDB = await exists(id);
   const uploaded = [];
@@ -113,6 +118,7 @@ module.exports = {
   update,
   delete: remove,
   getAll,
+  getById,
   confirmUploadOfImagesInS3,
   exists,
   deleteImagesFromS3AndDB,

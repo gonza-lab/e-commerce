@@ -25,6 +25,11 @@ route.get(
   '/',
   product_controller.getAll,
 )
+route.get(
+  '/:id',
+  joi_validator(product_schema.id, 'params'),
+  product_controller.getById,
+)
 route.post(
   '/:id/confirm-upload-images',
   joi_validator(product_schema.id, 'params'),

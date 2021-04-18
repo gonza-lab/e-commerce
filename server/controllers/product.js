@@ -56,6 +56,19 @@ const getAll = async (req = request, res = response, next) => {
   }
 }
 
+const getById = async (req = request, res = response, next) => {
+  try {
+    let data = await product_service.getById(req.params.id);
+
+    res.status(200).json({
+      ok: true,
+      data,
+    });
+  } catch(error) {
+    next(error);
+  }
+
+}
 
 const getPresginedUrlToPutImage = async (
   req = request,
@@ -123,6 +136,7 @@ module.exports = {
   update,
   delete: remove,
   getAll,
+  getById,
   confirmUploadOfImagesInS3,
   getPresginedUrlToPutImage,
   deleteImagesInS3AndDB,
