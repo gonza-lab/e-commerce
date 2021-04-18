@@ -1,5 +1,5 @@
 const category_service = require('./category');
-const { Product, Image } = require('../models');
+const { Product, Image, Category } = require('../models');
 const errors = require('../errors/errors');
 const s3_service = require('./s3');
 
@@ -45,6 +45,8 @@ const remove = async (id) => {
 
   await Product.destroy({ where: { id } });
 };
+
+const getAll = async () => await Product.findAll({ include: [Image, Category] });
 
 const confirmUploadOfImagesInS3 = async (images, id) => {
   let productDB = await exists(id);
@@ -110,6 +112,7 @@ module.exports = {
   create,
   update,
   delete: remove,
+  getAll,
   confirmUploadOfImagesInS3,
   exists,
   deleteImagesFromS3AndDB,

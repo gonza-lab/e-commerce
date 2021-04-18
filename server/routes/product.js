@@ -21,6 +21,10 @@ route.delete(
   joi_validator(product_schema.id, 'params'),
   product_controller.delete
 );
+route.get(
+  '/',
+  product_controller.getAll,
+)
 route.post(
   '/:id/confirm-upload-images',
   joi_validator(product_schema.id, 'params'),

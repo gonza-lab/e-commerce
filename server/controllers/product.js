@@ -1,6 +1,6 @@
 const { request, response } = require('express');
 const product_service = require('../services/product');
-const s3_service = require('../services/s3');
+const s3_service = require('../services/s3.js');
 
 const create = async (req = request, res = response, next) => {
   try {
@@ -41,6 +41,21 @@ const remove = async (req = request, res = response, next) => {
     next(error);
   }
 };
+
+const getAll = async (req = request, res = response, next) => {
+  try {
+    let data = await product_service.getAll();
+
+    res.status(200).json({
+      ok: true,
+      data,
+    });
+  } catch(error){
+    console.log(error);
+    next(error);
+  }
+}
+
 
 const getPresginedUrlToPutImage = async (
   req = request,
@@ -107,6 +122,7 @@ module.exports = {
   create,
   update,
   delete: remove,
+  getAll,
   confirmUploadOfImagesInS3,
   getPresginedUrlToPutImage,
   deleteImagesInS3AndDB,
