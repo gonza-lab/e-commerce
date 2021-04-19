@@ -1,5 +1,5 @@
 const category_service = require('./category');
-const { Product, Image, Category } = require('../models');
+const { Product, Image, Category, Purchase } = require('../models');
 const errors = require('../errors/errors');
 const s3_service = require('./s3');
 
@@ -123,6 +123,7 @@ const buy = async (quantity, id) => {
   };
 
   await Product.update({ stock: productDB.stock - quantity }, { where: { id } });
+  await Purchase.create({ quantity, productId: id });
 }
 
 module.exports = {
