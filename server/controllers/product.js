@@ -1,5 +1,5 @@
 const { request, response } = require('express');
-const product_service = require('../services/product');
+const product_service = require('../services/product.js');
 const s3_service = require('../services/s3.js');
 
 const create = async (req = request, res = response, next) => {
@@ -67,7 +67,6 @@ const getById = async (req = request, res = response, next) => {
   } catch(error) {
     next(error);
   }
-
 }
 
 const getPresginedUrlToPutImage = async (
@@ -85,13 +84,6 @@ const getPresginedUrlToPutImage = async (
         mime: img.mime,
       }))
     );
-    // if (req.body.delete) {
-    //   s3_service.deleteObjectsByArray(
-    //     req.body.delete.map((image) => ({
-    //       Key: `product/${req.body.id}/${image}`,
-    //     }))
-    //   );
-    // }
 
     res.status(200).json({ ok: true, 'presgined-urls': upload });
   } catch (error) {
@@ -131,6 +123,19 @@ const deleteImagesInS3AndDB = async (req = request, res = response, next) => {
   }
 };
 
+const buy = async (req = request, res = response, next) => {
+  try {
+    let data = await product_service.buy(req.body.quantity, req.params.id);
+
+    res.status(200).json({ 
+      ok: true,
+      data,
+    });
+  } catch(error) {
+    next(error);
+  }
+}
+
 module.exports = {
   create,
   update,
@@ -140,4 +145,5 @@ module.exports = {
   confirmUploadOfImagesInS3,
   getPresginedUrlToPutImage,
   deleteImagesInS3AndDB,
+  buy,
 };

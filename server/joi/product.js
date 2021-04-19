@@ -50,6 +50,10 @@ const deleteImages = Joi.object({
     .required(),
 });
 
+const buy = Joi.object({ 
+  quantity: Joi.number().required(),
+});
+
 module.exports = {
   id,
   create,
@@ -57,4 +61,5 @@ module.exports = {
   images,
   getPresginedUrlToPutImages,
   deleteImages,
+  buy,
 };

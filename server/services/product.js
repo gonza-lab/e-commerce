@@ -113,6 +113,18 @@ const deleteImagesFromS3AndDB = async (images = [], id) => {
   });
 };
 
+const buy = async (quantity, id) => {
+  let productDB = (await exists(id)).dataValues;
+
+  if(productDB.stock < quantity) {
+    throw new errors.BadRequest(
+      'InsufficientStock: The quantity to be purchased exceeds the available stock.'
+    )
+  };
+
+  await Product.update({ stock: productDB.stock - quantity }, { where: { id } });
+}
+
 module.exports = {
   create,
   update,
@@ -122,4 +134,5 @@ module.exports = {
   confirmUploadOfImagesInS3,
   exists,
   deleteImagesFromS3AndDB,
+  buy
 };

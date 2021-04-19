@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const product_controller = require('../controllers/product');
-const product_schema = require('../joi/product');
+const product_controller = require('../controllers/product.js');
+const product_schema = require('../joi/product.js');
 const joi_validator = require('../middlewares/joiValidator');
 
 const route = Router();
@@ -47,6 +47,12 @@ route.delete(
   joi_validator(product_schema.id, 'params'),
   joi_validator(product_schema.deleteImages, 'body'),
   product_controller.deleteImagesInS3AndDB
+);
+route.post(
+  '/buy/:id',
+  joi_validator(product_schema.id, 'params'),
+  joi_validator(product_schema.buy, 'body'),
+  product_controller.buy,
 );
 
 module.exports = route;
