@@ -1,10 +1,23 @@
+const sequelize = require('sequelize');
 const category_service = require('./category');
 const { Product, Image, Category, Purchase } = require('../models');
 const errors = require('../errors/errors');
 const s3_service = require('./s3');
 
+const queryOfGet = {
+  attributes: {
+    include: [[sequelize.fn('COUNT', sequelize.col('Purchases.productId')), 'purchases']]
+  },
+  include: [
+    { model: Purchase, attributes: []},
+    Image,
+    Category,
+  ],
+  group: ['Product.id']
+}
+
 const exists = async (id) => {
-  let productDB = await Product.findOne({ where: { id } });
+  let productDB = await Product.findOne({ ...queryOfGet, where: { id } });
 
   if (!productDB)
     throw new errors.NotFound('Not Found: Sent product cannot be found.');
@@ -27,7 +40,7 @@ const update = async ({ name, price, stock, categoryId }, id) => {
   if (categoryId) await category_service.exists(categoryId);
 
   await Product.update({ name, price, stock, categoryId }, { where: { id } });
-  let productDB = (await Product.findOne({ where: { id } })).dataValues;
+  let productDB = (await Product.findOne({ ...queryOfGet, where: { id } })).dataValues;
 
   return productDB;
 };
@@ -46,11 +59,18 @@ const remove = async (id) => {
   await Product.destroy({ where: { id } });
 };
 
-const getAll = async () => await Product.findAll({ include: [Image, Category] });
+const getAll = async () => {
+  return await Product.findAll({ 
+    ...queryOfGet,
+  })
+};
 
 const getById = async (id) => {
   await exists(id);
-  return await Product.findOne({ where: { id }, include: [Image, Category] })
+  return await Product.findOne({ 
+    ...queryOfGet,
+    where: { id },
+  })
 };
 
 const confirmUploadOfImagesInS3 = async (images, id) => {
