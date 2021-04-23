@@ -25,12 +25,8 @@ const exists = async (id) => {
   return productDB;
 };
 
-const create = async ({ name, price, stock, categoryId }) => {
-  if (categoryId) {
-    await category_service.exists(categoryId);
-  }
-
-  let productDB = await Product.create({ name, price, stock, categoryId });
+const create = async ({ name, price, stock }) => {
+  let productDB = await Product.create({ name, price, stock });
 
   return productDB.dataValues;
 };
