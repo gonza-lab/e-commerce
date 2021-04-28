@@ -1,6 +1,7 @@
 import React from 'react';
 import { InputGroup } from '../ui/input-group/InputGroup.js';
 import { InputText } from '../ui/input-text/InputText.js';
+import { InputTextArea } from '../ui/input-textarea/InputTextArea.js';
 import './Header.scss';
 
 export const Header = () => {
@@ -8,16 +9,9 @@ export const Header = () => {
     <header className="Header">
       <InputGroup>
 	<span>
-	  Name:
+	  <i class="icon-lock"></i>
 	</span>
-	<InputText placeholder="Name" />
-	<span>
-	  Name:
-	</span>
-	<InputText placeholder="Name" />
-	<span>
-	  Name:
-	</span>
+	<InputTextArea placeHolder="Password" />
       </InputGroup>
     </header>
   );
