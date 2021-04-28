@@ -1,0 +1,35 @@
+@import '../../../style/colors.scss';
+
+.input-group {
+  border-radius: .3125rem; 
+  display: flex;
+  background-color: #fff;
+
+  > * {
+    font-size: .9375rem; 
+    font-weight: 400;
+    line-height: 1.5;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $gray-700;
+    background-color: #fff;
+    border: 1px solid #00000016;
+    border-right: none;
+  }
+
+  > * {
+    padding: .625rem 1rem;
+
+    &:first-child {
+      border-radius: .3125rem 0 0 .3125rem;
+    }
+    &:last-child {
+      border-radius: 0 .3125rem .3125rem 0;
+      border-right: 1px solid #00000016;
+    }
+  }
+
+  > * + * {
+    //border-left: 1px solid #00000016;
+  }
+}
