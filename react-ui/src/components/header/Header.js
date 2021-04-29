@@ -1,7 +1,6 @@
 import React from 'react';
 import { InputGroup } from '../ui/input-group/InputGroup.js';
-import { InputText } from '../ui/input-text/InputText.js';
-import { InputTextArea } from '../ui/input-textarea/InputTextArea.js';
+import { InputSelect } from '../ui/input-select/InputSelect.js';
 import './Header.scss';
 
 export const Header = () => {
@@ -11,7 +10,11 @@ export const Header = () => {
 	<span>
 	  <i class="icon-lock"></i>
 	</span>
-	<InputTextArea placeHolder="Password" />
+        <InputSelect>
+	  <option>One</option>
+	  <option>Two</option>
+	  <option>Three</option>
+        </InputSelect>
       </InputGroup>
     </header>
   );
