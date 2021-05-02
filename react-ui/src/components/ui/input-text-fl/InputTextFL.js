@@ -1,10 +1,10 @@
 import React from 'react';
 import './InputTextFL.scss';
 
-export const InputTextFL = ({ label, ...props }) => {
+export const InputTextFL = ({ children, label }) => {
   return (
     <div className="input-text-fl">
-      <input placeholder={label} {...props} />
+      {children}
       <label>{label}</label>
     </div>
   );
