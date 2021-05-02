@@ -1,21 +1,13 @@
 import React from 'react';
 import { InputGroup } from '../ui/input-group/InputGroup.js';
-import { InputSelect } from '../ui/input-select/InputSelect.js';
+import { InputTextFL } from '../ui/input-text-fl/InputTextFL';
+import { InputText } from '../ui/input-text/InputText';
 import './Header.scss';
 
 export const Header = () => {
-  return(
+  return (
     <header className="Header">
-      <InputGroup>
-	<span>
-	  <i class="icon-lock"></i>
-	</span>
-        <InputSelect>
-	  <option>One</option>
-	  <option>Two</option>
-	  <option>Three</option>
-        </InputSelect>
-      </InputGroup>
+      <InputTextFL label="Name" />
     </header>
   );
 };
