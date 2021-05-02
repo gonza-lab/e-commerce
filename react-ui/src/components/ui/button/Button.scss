@@ -1,0 +1,46 @@
+@import '../../../style/colors';
+
+.ui-button {
+  cursor: pointer;
+  padding: 0.625rem 1.375rem;
+  font-size: 0.9375rem;
+  transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out,
+    border-color 0.25s ease-in-out, box-shadow 0.2s ease-in-out;
+  border: 1px solid transparent;
+  text-align: center;
+
+  color: $white;
+  background-color: $primary;
+  border-color: $primary;
+
+  &:hover,
+  &:focus {
+    border-color: darken($color: $primary, $amount: 10);
+    background-color: darken($color: $primary, $amount: 10);
+  }
+}
+
+.ui-button__rounded {
+  border-radius: 0.3125rem;
+}
+
+.ui-button__theme-secondary {
+  border-color: $gray-300;
+  color: $gray-700;
+  background-color: $gray-200;
+
+  &:hover,
+  &:focus {
+    color: darken($color: $gray-700, $amount: 10)!important;
+    border-color: transparent;
+    background-color: darken($color: $gray-200, $amount: 10);
+  }
+}
+
+.ui-button__icon {
+  padding: 0.625rem 0.875rem;
+}
+
+.ui-button__pill {
+  border-radius: 50rem;
+}

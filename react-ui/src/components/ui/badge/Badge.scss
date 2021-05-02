@@ -1,0 +1,18 @@
+@import '../../../style/colors';
+
+.ui-badge {
+  background-color: $primary;
+  padding: 0.25em 0.625em;
+  font-size: 0.75em;
+  font-weight: normal;
+  line-height: 1;
+  color: $white;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.175rem;
+}
+
+.ui-badge__pill {
+	border-radius: 50rem;
+}
