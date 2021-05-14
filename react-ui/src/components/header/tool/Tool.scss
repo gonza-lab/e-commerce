@@ -45,12 +45,15 @@
   > .header-tool__shop {
     position: relative;
     background-color: $gray-200;
-    margin-right: 14px;
 
     > .ui-badge {
       position: absolute;
       top: -0.3125rem;
       right: -0.3125rem;
+    }
+
+    & + .header-tool__text {
+      margin-left: 14px;
     }
   }
 
