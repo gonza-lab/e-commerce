@@ -21,11 +21,19 @@ export const Header = () => {
               <div>
                 <i className="icon-user"></i>
               </div>
+              <div className="header-tool__text">
+                <small>Hello, Sign in</small>
+                My Account
+              </div>
             </HeaderTool>
             <HeaderTool>
               <div className="header-tool__shop">
                 <i className="icon-shopping-cart"></i>
                 <UiBadge pill>5</UiBadge>
+              </div>
+              <div className="header-tool__text">
+                <small>My cart</small>
+                $1.247,00▼
               </div>
             </HeaderTool>
           </div>

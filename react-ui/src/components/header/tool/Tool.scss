@@ -5,16 +5,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 
   > div:first-child {
-    padding: 10px;
-    height: calc(1.45rem + 20px);
     border-radius: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
 
     > i {
+      text-align: center;
+      width: 2.875rem;
+      height: 2.875rem;
       cursor: pointer;
       font-size: 1.35rem;
       line-height: 2.875rem;
@@ -23,14 +25,49 @@
     }
   }
 
+  > .header-tool__text {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    color: $gray-700;
+    font-size: 0.875rem;
+    white-space: nowrap;
+
+    > small {
+      color: $gray-600;
+    }
+
+    @media (min-width: 1000px) {
+      display: flex;
+    }
+  }
+
   > .header-tool__shop {
     position: relative;
     background-color: $gray-200;
+    margin-right: 14px;
 
     > .ui-badge {
       position: absolute;
       top: -0.3125rem;
       right: -0.3125rem;
+    }
+  }
+
+  &:hover {
+    > .header-tool__text {
+      > i {
+        color: $gray-900;
+        transition: color 0.25s ease-in-out;
+      }
+    }
+
+    > div:last-child {
+      color: $gray-900;
+      transition: color 0.25s ease-in-out;
+      > small {
+        color: $gray-600;
+      }
     }
   }
 }
