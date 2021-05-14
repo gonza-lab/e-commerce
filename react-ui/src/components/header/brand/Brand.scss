@@ -1,0 +1,14 @@
+.header-brand {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  margin-right: 1rem;
+  font-size: calc(1.3rem + 0.6vw);
+  white-space: nowrap;
+  height: 100%;
+  > picture {
+    > source,
+    > img {
+      height: 100%;
+    }
+  }
+}

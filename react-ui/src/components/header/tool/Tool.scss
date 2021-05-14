@@ -1,0 +1,13 @@
+@import '../../../style/colors';
+
+.header-tool {
+  padding: 0 15px;
+
+  > i {
+    cursor: pointer;
+    font-size: 1.45rem;
+    line-height: 2.875rem;
+    font-weight: 100;
+    color: $gray-700;
+  }
+}

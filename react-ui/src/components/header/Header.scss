@@ -1,7 +1,26 @@
-.Header {
-  border: 1px solid black;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.header {
+  > div {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+
+    > .ui-container {
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      > .header-tools {
+        display: flex;
+
+        > * {
+          width: 100%;
+        }
+      }
+    }
+  }
 }

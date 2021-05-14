@@ -31,9 +31,22 @@
 
   &:hover,
   &:focus {
-    color: darken($color: $gray-700, $amount: 10)!important;
+    color: darken($color: $gray-700, $amount: 10) !important;
     border-color: transparent;
     background-color: darken($color: $gray-200, $amount: 10);
+  }
+}
+
+.ui-button__theme-light {
+  border-color: transparent;
+  color: $gray-700;
+  background-color: transparent;
+
+  &:hover,
+  &:focus {
+    color: $gray-900;
+    border-color: transparent;
+    background-color: transparent;
   }
 }
 
