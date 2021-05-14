@@ -1,0 +1,53 @@
+@import '../../style/colors';
+
+.toolbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s 0.35s ease-in-out;
+  border-top: 1px solid #e3e9ef;
+  background-color: #fff;
+  box-shadow: -1.25rem 0 2rem 0 #2b344526;
+  z-index: 1026;
+
+  > .toolbar__tool {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.5rem;
+
+    & + .toolbar__tool {
+      border-left: 1px solid #e3e9ef;
+    }
+
+    > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      > i {
+        font-size: 1.25rem;
+        color: $gray-700;
+      }
+
+      > i + span {
+        font-size: 0.625rem;
+        margin-left: 0.25rem;
+      }
+    }
+
+    > span {
+      font-size: 0.6875rem;
+      margin-top: 3px;
+      color: $gray-600;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    display: none;
+  }
+}
